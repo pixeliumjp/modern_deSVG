@@ -1,107 +1,56 @@
-(function() {
-    "use strict";
+// SVGをインラインに置き換える関数
+export const deSVG = (selector, removeInlineCss = false) => {
+    const sortImages = {};
 
-    var desvg = function(selector, removeInlineCss) {
-        removeInlineCss = removeInlineCss || false;
+    // SVGファイルをロード
+    const loadSvg = async (imgURL, replaceImages) => {
+        try {
+            const response = await fetch(imgURL);
+            const xmlText = await response.text();
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(xmlText, 'image/svg+xml');
 
-        var images,
-            imagesLength,
-            sortImages = {},
+            if (!xml) return;
 
-            // load svg file
-            loadSvg = function (imgURL, replaceImages) {
-                // set up the AJAX request
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', imgURL, true);
+            const svg = xml.documentElement;
+            const paths = svg.querySelectorAll('path');
 
-                xhr.onload = function() {
-                    var xml,
-                        svg,
-                        paths,
-                        replaceImagesLength;
-
-                    // get the response in XML format
-                    xml = xhr.responseXML;
-                    replaceImagesLength = replaceImages.length;
-
-                    // bail if no XML
-                    if (!xml) {
-                        return;
-                    }
-
-                    // this will be the <svg />
-                    svg = xml.documentElement;
-
-                    // get all the SVG paths
-                    paths = svg.querySelectorAll('path');
-
-                    if (removeInlineCss) {
-                        // if `removeInlineCss` is true then remove the style attributes from the SVG paths
-                        for (var i = 0; i < paths.length; i++) {
-                            paths[i].removeAttribute('style');
-                        }
-                    }
-                    svg.removeAttribute('xmlns:a');
-
-                    while(replaceImagesLength--) {
-                        replaceImgWithSvg(replaceImages[replaceImagesLength], svg.cloneNode(true));
-                    }
-                };
-
-                xhr.send();
-            },
-
-            // replace the original <img /> with the new <svg />
-            replaceImgWithSvg = function (img, svg) {
-                var imgID = img.id,
-                    imgClasses = img.getAttribute('class');
-
-                if (imgID) {
-                    // re-assign the ID attribute from the <img />
-                    svg.id = imgID;
-                }
-
-                if (imgClasses) {
-                    // re-assign the class attribute from the <img />
-                    svg.setAttribute('class', imgClasses + ' replaced-svg');
-                }
-
-                img.parentNode.replaceChild(svg, img);
-            };
-
-
-
-        // grab all the elements from the document matching the passed in selector
-        images = document.querySelectorAll(selector);
-        imagesLength = images.length;
-
-        // sort images array by image url
-        while (imagesLength--) {
-            var _img = images[imagesLength],
-              _imgURL;
-
-            if (_img.getAttribute('data-src')) {
-              _imgURL = _img.getAttribute('data-src')
-            } else {
-              _imgURL = _img.getAttribute('src')
+            if (removeInlineCss) {
+                // style属性を削除
+                paths.forEach(path => path.removeAttribute('style'));
             }
 
-            if (sortImages[_imgURL]) {
-                sortImages[_imgURL].push(_img);
-            } else {
-                sortImages[_imgURL] = [_img];
-            }
+            svg.removeAttribute('xmlns:a');
+
+            // 配列メソッドmapを使って効率的に置き換え
+            replaceImages.map(img => replaceImgWithSvg(img, structuredClone(svg)));
+        } catch (error) {
+            console.error('Failed to load SVG:', error);
         }
-
-        // loops over the matched urls
-        for (var key in sortImages) {
-            if (sortImages.hasOwnProperty(key)) {
-                loadSvg(key, sortImages[key]);
-            }
-        }
-
     };
 
-    window.deSVG = desvg;
-})();
+    // 画像をSVGで置き換える
+    const replaceImgWithSvg = (img, svg) => {
+        const imgID = img.id;
+        const imgClasses = img.getAttribute('class');
 
+        if (imgID) svg.id = imgID;
+        if (imgClasses) svg.classList.add(...imgClasses.split(' '), 'replaced-svg');
+
+        img.replaceWith(svg); // 親要素に直接置き換える
+    };
+
+    // 画像をセレクターで取得
+    const images = document.querySelectorAll(selector);
+
+    // URLでソート
+    images.forEach(img => {
+        const imgURL = img.dataset.src || img.src;
+
+        sortImages[imgURL] ||= []; // Nullish coalescingで配列の初期化を簡潔に
+        sortImages[imgURL].push(img);
+    });
+
+    // すべてのURLに対してSVGをロード
+    Object.keys(sortImages).forEach(key => loadSvg(key, sortImages[key]));
+};
