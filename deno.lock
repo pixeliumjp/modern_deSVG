@@ -1,7 +1,6 @@
 {
   "version": "4",
   "specifiers": {
-    "npm:@rollup/plugin-commonjs@28": "28.0.0_rollup@4.24.0",
     "npm:@rollup/plugin-node-resolve@^15.3.0": "15.3.0_rollup@4.24.0",
     "npm:@rollup/plugin-terser@~0.4.4": "0.4.4_rollup@4.24.0",
     "npm:rollup-plugin-node-polyfills@~0.2.1": "0.2.1",
@@ -39,19 +38,6 @@
       "dependencies": [
         "@jridgewell/resolve-uri",
         "@jridgewell/sourcemap-codec"
-      ]
-    },
-    "@rollup/plugin-commonjs@28.0.0_rollup@4.24.0": {
-      "integrity": "sha512-BJcu+a+Mpq476DMXG+hevgPSl56bkUoi88dKT8t3RyUp8kGuOh+2bU8Gs7zXDlu+fyZggnJ+iOBGrb/O1SorYg==",
-      "dependencies": [
-        "@rollup/pluginutils",
-        "commondir",
-        "estree-walker@2.0.2",
-        "fdir",
-        "is-reference",
-        "magic-string@0.30.11",
-        "picomatch",
-        "rollup"
       ]
     },
     "@rollup/plugin-node-resolve@15.3.0_rollup@4.24.0": {
@@ -201,9 +187,6 @@
     "commander@7.2.0": {
       "integrity": "sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw=="
     },
-    "commondir@1.0.1": {
-      "integrity": "sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg=="
-    },
     "concat-with-sourcemaps@1.1.0": {
       "integrity": "sha512-4gEjHJFT9e+2W/77h/DS5SGUgwDaOwprX8L/gl5+3ixnzkVJJsZWDSelmN3Oilw3LNDZjZV0yqH1hLG3k6nghg==",
       "dependencies": [
@@ -341,9 +324,6 @@
     "eventemitter3@4.0.7": {
       "integrity": "sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw=="
     },
-    "fdir@6.4.0": {
-      "integrity": "sha512-3oB133prH1o4j/L5lLW7uOCF1PlD+/It2L0eL/iAqWMB91RBbqTewABqxhj0ibBd90EEmWZq7ntIWzVaWcXTGQ=="
-    },
     "fsevents@2.3.3": {
       "integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw=="
     },
@@ -395,12 +375,6 @@
     "is-module@1.0.0": {
       "integrity": "sha512-51ypPSPCoTEIN9dy5Oy+h4pShgJmPCygKfyRCISBI+JoWT/2oJvK8QPxmwv7b/p239jXrm9M1mlQbyKJ5A152g=="
     },
-    "is-reference@1.2.1": {
-      "integrity": "sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==",
-      "dependencies": [
-        "@types/estree"
-      ]
-    },
     "lilconfig@2.1.0": {
       "integrity": "sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ=="
     },
@@ -420,12 +394,6 @@
       "integrity": "sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==",
       "dependencies": [
         "sourcemap-codec"
-      ]
-    },
-    "magic-string@0.30.11": {
-      "integrity": "sha512-+Wri9p0QHMy+545hKww7YAu5NyzF8iomPL/RQazugQ9+Ez4Ic3mERMd8ZTX5rfK944j+560ZJi8iAwgak1Ac7A==",
-      "dependencies": [
-        "@jridgewell/sourcemap-codec"
       ]
     },
     "mdn-data@2.0.14": {
@@ -769,7 +737,7 @@
       "integrity": "sha512-ptg9PQwzs3orn4jkgXJ74bfs5vYz1NCZlSQMBUA0wKcGp5i5pA1AO3fOUEte8enhGUC+iapTCzEWw2jEFFUO/w==",
       "dependencies": [
         "estree-walker@0.6.1",
-        "magic-string@0.25.9",
+        "magic-string",
         "rollup-pluginutils"
       ]
     },
@@ -969,7 +937,6 @@
   },
   "workspace": {
     "dependencies": [
-      "npm:@rollup/plugin-commonjs@28",
       "npm:@rollup/plugin-node-resolve@^15.3.0",
       "npm:@rollup/plugin-terser@~0.4.4",
       "npm:rollup-plugin-node-polyfills@~0.2.1",
