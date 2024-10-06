@@ -2,7 +2,7 @@
   "tasks": {
     "build": "deno run --allow-sys --allow-ffi --allow-env --allow-read --allow-write npm:rollup --config",
     "build:watch": "deno run --watch=src --allow-sys --allow-ffi --allow-env --allow-read --allow-write npm:rollup --config",
-    "filecopy": "deno run --allow-write --allow-read --allow-env build/filecopy_module.ts",
+    "doc:preview": "deno run --allow-read --allow-net server.ts",
     "module:reload": "deno cache --reload --node-modules-dir npm:rollup",
     "module:install": "deno install --node-modules-dir"
   },
