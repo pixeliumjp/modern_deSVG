@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>modern deSVG</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrap">
+      <h1><span>de</span>SVG</h1>
+      <ul class="sell">
+        <li>
+          <i class="fa fa-check"></i> Remove inline SVG bloat from your HTML
+          document.
+        </li>
+        <li><i class="fa fa-check"></i> Style SVGs with CSS.</li>
+        <li>
+          <i class="fa fa-check"></i> SVGs still accessible without JavaScript.
+        </li>
+      </ul>
+      <div class="ctas">
+        <a
+          href="https://raw.githubusercontent.com/benhowdle89/deSVG/gh-pages/desvg.js"
+          class="button"
+        >Download</a>
+        <a href="https://github.com/benhowdle89/deSVG" class="button">Docs</a>
+        <a href="http://jsfiddle.net/benhowdle89/ujxomdgc/14/" class="button"
+        >Demo</a>
+        <a href="https://www.npmjs.com/package/desvg" class="button">npm</a>
+      </div>
+      <div class="usage">
+        <h3>What does it do?</h3>
+        <p>
+          deSVG takes the &lt;img /&gt; tags you supply. It then grabs, using
+          AJAX, the raw SVG you've set in the "src" attribute and replaces that
+          &lt;img /&gt; with the &lt;svg /&gt; it downloads.
+        </p>
+        <h3>Include the JavaScript file on your page</h3>
+        <pre
+        ><code>&lt;script src=&quot;path/to/desvg.js&quot;&gt;&lt;/script&gt;</code></pre
+        >
+        <h3>Kick off deSVG</h3>
+        <pre
+        >
+<code>window.addEventListener('load', function(){
+ 	// 1. selector for the &lt;img /&gt; tags to replace
+ 	// 2. whether to strip inline style tags from SVG paths
+	deSVG('.replace-svg', true);
+});</code></pre
+        >
+        <h3>ノート</h3>
+        <p>
+          このライブラリを使用すると、HTTPリクエストが重複します（最初に画像の src をダウンロードするリクエストがあり、その後でSVGデータをfetchで取得するリクエストが発生します）。
+          ただし、開発は常にトレードオフの連続なので、このライブラリを使用することのメリットとデメリットを考慮するのはあなた次第です。時には、微小な最適化と、安定した開発ワークフローのどちらを選ぶかという問題になります。
+          あなたの判断を信じます。
+        </p>
+      </div>
+
+      <footer>
+        <p>Made by <a href="http://benhowdle.im">Ben Howdle</a></p>
+        <p>Forked by Pixelium, Inc.</p>
+      </footer>
+    </div>
+  </body>
+</html>
