@@ -1,16 +1,6 @@
-import { serve } from "https://deno.land/std@0.205.0/http/server.ts";
-import { serveFile } from "https://deno.land/std@0.205.0/http/file_server.ts";
+import { serveDir } from "jsr:@std/http@1";
 
-const handler = async (req: Request): Promise<Response> => {
-  const url = new URL(req.url);
-  const filePath = `${Deno.cwd()}/public${url.pathname}`;
-
-  try {
-    return await serveFile(req, filePath);
-  } catch {
-    return new Response("File Not Found", { status: 404 });
-  }
-};
-
-console.log("Listening on http://localhost:8000/");
-serve(handler, { port: 8000 });
+Deno.serve((request) => {
+  const url = new URL(request.url);
+  return serveDir(request, { fsRoot: "./doc", urlRoot: "" });
+});
