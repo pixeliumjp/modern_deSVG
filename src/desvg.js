@@ -30,7 +30,9 @@ export const deSVG = async (selector, removeInlineCss = false) => {
       svg.removeAttribute("xmlns:a");
 
       // Replace all the images with the SVG
-      replaceImages.forEach((img) => replaceImgWithSvg(img, svg.cloneNode(true)));
+      replaceImages.forEach((img) =>
+        replaceImgWithSvg(img, svg.cloneNode(true))
+      );
     } catch (error) {
       console.error(`Error loading SVG: ${error}`);
     }
