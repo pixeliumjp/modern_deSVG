@@ -1,0 +1,16 @@
+{
+  "tasks": {
+    "build": "deno run --allow-sys --allow-ffi --allow-env --allow-read --allow-write npm:rollup --config",
+    "build:watch": "deno run --watch=src --allow-sys --allow-ffi --allow-env --allow-read --allow-write npm:rollup --config",
+    "filecopy": "deno run --allow-write --allow-read --allow-env build/filecopy_module.ts",
+    "module:reload": "deno cache --reload --node-modules-dir npm:rollup",
+    "module:install": "deno install --node-modules-dir"
+  },
+  "imports": {
+    "@rollup/plugin-node-resolve": "npm:@rollup/plugin-node-resolve@^15.3.0",
+    "@rollup/plugin-terser": "npm:@rollup/plugin-terser@^0.4.4",
+    "rollup": "npm:rollup@^4.24.0",
+    "rollup-plugin-node-polyfills": "npm:rollup-plugin-node-polyfills@^0.2.1",
+    "rollup-plugin-postcss": "npm:rollup-plugin-postcss@^4.0.2"
+  }
+}
